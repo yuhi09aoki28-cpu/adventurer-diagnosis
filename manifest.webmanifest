@@ -1,0 +1,16 @@
+{
+  "name": "冒険者診断",
+  "short_name": "冒険者診断",
+  "description": "RPGの8職業で、あなたの性格タイプと6つの能力・興味を鑑定する診断",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EFE8D8",
+  "theme_color": "#1F2547",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
