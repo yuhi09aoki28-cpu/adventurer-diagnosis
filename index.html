@@ -165,6 +165,54 @@ body::after{background:radial-gradient(circle,light-dark(#BFD6FF,#5B2E7A),transp
 #cOut.pulse{animation:pop .5s var(--spring)}
 @keyframes pop{0%{transform:scale(.96);opacity:.6}100%{transform:none;opacity:1}}
 #shareImg{animation:rise .7s var(--ease) both;box-shadow:0 24px 50px -20px rgba(31,37,71,.7);border-radius:18px!important}
+
+/* ===== v3b：箱をなくして流れるレイアウト＋さわる仕掛け ===== */
+.wrap{gap:22px}
+.card{background:transparent!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-radius:0;padding:4px 0}
+#s-res>.rv+.rv{padding-top:30px;border-top:1px solid var(--glass-b)!important}
+#app{counter-reset:sec}
+h2.sh{counter-increment:sec;display:flex;align-items:baseline;gap:12px;font-size:24px;line-height:1.3}
+h2.sh::before{content:counter(sec,decimal-leading-zero);font:14px 'DotGothic16',sans-serif;color:#E9A93A;letter-spacing:.1em;padding:2px 8px;border-radius:999px;background:rgba(233,185,73,.15)}
+section.rv>.card{padding:6px 0 6px 18px!important;border-left:3px solid #E9B949!important;border-radius:0!important}
+section.rv>.card[style*=dashed]{border-left:3px dashed var(--muted)!important}
+.tip{background:linear-gradient(90deg,rgba(233,185,73,.16),transparent);border-radius:0 12px 12px 0}
+.hero{margin:0 -16px;border-radius:0 0 40px 40px!important;padding:46px 22px 34px!important;perspective:800px}
+.hero .tile{transform-style:preserve-3d;transition:transform .15s ease-out;cursor:pointer}
+#topGrid{background:transparent!important;box-shadow:none!important;padding:6px 0!important;gap:14px 8px}
+#topGrid::after{display:none}
+#topGrid .tile{border-radius:50%;height:74px!important;width:74px!important;margin:0 auto;background:radial-gradient(circle at 50% 35%,#fff 0%,#FFF4D2 75%);box-shadow:0 10px 22px -12px rgba(31,37,71,.55),inset 0 -5px 0 rgba(31,37,71,.06);cursor:pointer}
+#topGrid .tile img{height:60px!important}
+#topGrid span.dot{color:var(--ink)!important}
+#topGrid>div{position:relative}
+.say{position:absolute;bottom:100%;left:50%;transform:translate(-50%,6px) scale(.6);opacity:0;white-space:nowrap;background:var(--grad);color:#fff;font:12px 'Noto Sans JP',sans-serif;padding:6px 10px;border-radius:12px;z-index:5;pointer-events:none;transition:all .35s var(--spring)}
+.say.on{opacity:1;transform:translate(-50%,-4px) scale(1)}
+.say::after{content:'';position:absolute;left:50%;top:100%;margin-left:-5px;border:5px solid transparent;border-top-color:#2E3A7A}
+.jumpy{animation:jumpy .55s var(--spring)!important}
+@keyframes jumpy{30%{transform:translateY(-18px) scale(1.08,.94)}60%{transform:translateY(0) scale(.96,1.04)}}
+/* 質問：箱なし、円のスケール */
+#qCard{background:transparent!important;box-shadow:none!important;color:var(--ink)!important;min-height:200px!important;text-align:center;padding:10px 4px!important;overflow:visible}
+#qCard::after{display:none}
+#qCard::before{content:attr(data-n);position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font:140px/1 'DotGothic16',sans-serif;color:var(--ink);opacity:.06;pointer-events:none;z-index:-1}
+#qText{font-size:22px!important;line-height:1.65!important}
+#qTag{align-self:center}
+#opts{flex-direction:row!important;align-items:center;justify-content:center;gap:12px!important;padding:6px 0 2px}
+#opts .opt{width:var(--sz);height:var(--sz);min-height:0;padding:0;border-radius:50%;justify-content:center;flex:none;border:3px solid var(--c);background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+#opts .opt .k{display:none}
+#opts .opt .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#opts .opt:hover{transform:scale(1.12);background:color-mix(in srgb,var(--c) 18%,transparent)}
+#opts .opt.sel{background:var(--c);transform:scale(1.15);box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 25%,transparent)}
+#opts .opt.sel::after{content:'✓';color:#fff;font:700 18px 'Noto Sans JP',sans-serif}
+.scale-ends{display:flex;justify-content:space-between;font-size:13px;font-weight:700;padding:0 2px}
+.scale-ends span:first-child{color:#D8962B}.scale-ends span:last-child{color:var(--ink)}
+#optLabel{text-align:center;min-height:1.7em;font-weight:700;transition:opacity .2s}
+/* さわる仕掛け */
+.spark{position:fixed;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:40;animation:spark .6s ease-out forwards}
+@keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+.ring{position:fixed;width:10px;height:10px;margin:-5px 0 0 -5px;border:2px solid #E9B949;border-radius:50%;pointer-events:none;z-index:40;animation:ring .5s ease-out forwards}
+@keyframes ring{to{transform:scale(5);opacity:0}}
+.rdot{cursor:pointer}
+.hero .tile.spin{animation:spin3 .8s var(--spring)!important}
+@keyframes spin3{to{transform:rotateY(360deg)}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.rp{transform:none}.rdot{opacity:1}.rv:not(.seen) .bar>i{transform:none}.toast.show{opacity:1}}
 </style>
 </head>
@@ -178,6 +226,7 @@ body::after{background:radial-gradient(circle,light-dark(#BFD6FF,#5B2E7A),transp
     <p>あなたの性格タイプと<br>6つの能力を鑑定します</p>
   </div>
   <div class="win grid4" id="topGrid"></div>
+  <p class="note" style="margin-top:-10px">キャラをタップすると、ひとこと話すよ</p>
   <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap"><span class="pill">全72問</span><span class="pill">約12分</span><span class="pill">登録不要</span></div>
   <div id="resumeBox" style="display:none;flex-direction:column;gap:10px">
     <button class="btn" id="resumeBtn" type="button"></button>
@@ -241,8 +290,12 @@ body::after{background:radial-gradient(circle,light-dark(#BFD6FF,#5B2E7A),transp
     <span class="dot" style="color:var(--gold);font-size:14px" id="qTag"></span>
     <p style="font-size:19px;font-weight:700;line-height:1.7" id="qText" aria-live="polite"></p>
   </div>
-  <div style="display:flex;flex-direction:column;gap:10px" id="opts"></div>
-  <p class="note">キーボードの 1〜5 でも答えられます</p>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="scale-ends" aria-hidden="true"><span>当てはまる</span><span>当てはまらない</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px" id="opts" role="group" aria-label="回答"></div>
+    <p id="optLabel" aria-hidden="true">　</p>
+  </div>
+  <p class="note">円をタップして答えてね（PCはキーボードの 1〜5 でもOK）</p>
   <button class="link" type="button" id="quitBtn" style="align-self:center">中断してトップへ（回答は保存されます）</button>
 </section>
 
@@ -526,7 +579,7 @@ const radar = (stats, opt) => {
   g += ORDER.map((s, i) => {
     const p = P(i, stats[s]), v = stats[s];
     const k = pk.strong.includes(s) ? 1 : pk.grow.includes(s) ? -1 : 0;
-    return `<circle class="rdot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${k ? 6 : 4}" fill="${k < 0 ? '#fff' : o.ink}" stroke="${o.ink}" stroke-width="2.5"><title>${S[s].n} ${v}</title></circle>`;
+    return `<circle class="rdot" data-s="${s}" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${k ? 6 : 4}" fill="${k < 0 ? '#fff' : o.ink}" stroke="${o.ink}" stroke-width="2.5"><title>${S[s].n} ${v}</title></circle>`;
   }).join('');
   if (o.labels) g += ORDER.map((s, i) => {
     const c = Math.cos(ang(i)), sn = Math.sin(ang(i));
@@ -540,7 +593,7 @@ const radar = (stats, opt) => {
 /* ---------- screens ---------- */
 const renderTop = () => {
   $('topGrid').innerHTML = ['warrior','priest','mage','monk','merchant','sage','archer','bard'].map((id, j) =>
-    `<div style="--j:${j};display:flex;flex-direction:column;align-items:center;gap:4px"><div class="tile" style="width:100%;height:76px">${spr(id, 64)}</div><span class="dot" style="font-size:13px;color:#fff">${T[id].n}</span></div>`).join('');
+    `<div style="--j:${j};display:flex;flex-direction:column;align-items:center;gap:4px" data-char="${id}"><span class="say">「${T[id].c}」</span><div class="tile" style="width:100%;height:76px">${spr(id, 64)}</div><span class="dot" style="font-size:13px;color:#fff">${T[id].n}</span></div>`).join('');
   const done = st.ans.filter(a => a !== null).length;
   const mid = done > 0 && done < N;
   $('resumeBox').style.display = mid ? 'flex' : 'none';
@@ -560,7 +613,11 @@ const renderQ = () => {
   const left = Math.max(1, Math.ceil((N - done) * 9 / 60));
   $('qLeft').textContent = done >= N ? '回答はこのブラウザに自動保存されます' : `残り 約${left}分・自動保存中`;
   $('backBtn').style.visibility = i === 0 ? 'hidden' : 'visible';
-  $('opts').innerHTML = LABELS.map((l, k) => `<button type="button" class="opt${st.ans[i] === k ? ' sel' : ''}" data-k="${k}"><span class="k">${st.ans[i] === k ? '✓' : k + 1}</span>${l}</button>`).join('');
+  const SZ = [58, 46, 36, 46, 58], CL = ['#E9A93A', '#EBC26A', '#A3A8BF', '#6B76B8', '#2E3A7A'];
+  $('opts').innerHTML = LABELS.map((l, k) => `<button type="button" class="opt${st.ans[i] === k ? ' sel' : ''}" data-k="${k}" style="--sz:${SZ[k]}px;--c:${CL[k]}" aria-label="${l}"><span class="k">${k + 1}</span><span class="lbl">${l}</span></button>`).join('');
+  $('optLabel').textContent = st.ans[i] != null ? LABELS[st.ans[i]] : '　';
+  $('qCard').dataset.n = i + 1;
+  document.querySelectorAll('#opts .opt').forEach(b => { b.onmouseenter = b.onfocus = () => { $('optLabel').textContent = LABELS[+b.dataset.k]; }; b.onmouseleave = () => { $('optLabel').textContent = st.ans[st.i] != null ? LABELS[st.ans[st.i]] : '　'; }; });
 };
 let busy = false;
 const slideQ = (dir, f) => {
@@ -574,7 +631,7 @@ const cheer = n => { if (!CHEER[n]) return; const d = document.createElement('di
 const answer = (k, ev) => {
   if (busy) return; busy = true;
   st.ans[st.i] = k; save();
-  document.querySelectorAll('.opt').forEach(b => { const on = +b.dataset.k === k; b.classList.toggle('sel', on); b.querySelector('.k').textContent = on ? '✓' : +b.dataset.k + 1; });
+  document.querySelectorAll('.opt').forEach(b => b.classList.toggle('sel', +b.dataset.k === k)); $('optLabel').textContent = LABELS[k];
   const b = document.querySelector(`.opt[data-k="${k}"]`);
   if (b && !RM) { const q = b.getBoundingClientRect(), r = document.createElement('span'); const sz = q.width; r.className = 'ripple'; r.style.cssText = `width:${sz}px;height:${sz}px;left:${(ev && ev.clientX ? ev.clientX - q.left : q.width / 2) - sz / 2}px;top:${(ev && ev.clientY ? ev.clientY - q.top : q.height / 2) - sz / 2}px`; b.appendChild(r); }
   try { if (navigator.vibrate) navigator.vibrate(8); } catch (e) {}
@@ -632,43 +689,43 @@ const renderRes = r => {
   <section class="win hero" style="display:flex;flex-direction:column;align-items:center;gap:12px">
     <div class="burst" aria-hidden="true"></div>
     <p class="small later" style="--d:.1s;position:relative">あなたは…</p>
-    <div class="tile" style="width:170px;height:190px;box-shadow:0 0 0 4px #E9B949,0 0 40px rgba(233,185,73,.6)">${spr(r.type, 166)}</div>
+    <div class="tile" id="heroTile" style="width:170px;height:190px;box-shadow:0 0 0 4px #E9B949,0 0 40px rgba(233,185,73,.6)" title="タップしてみてね">${spr(r.type, 166)}</div>
     <h1 class="dot" style="font-size:44px;line-height:1.1;font-weight:400;position:relative" aria-label="${t.n}">${[...t.n].map((ch, i) => `<span style="--i:${i}">${ch}</span>`).join('')}</h1>
     <p class="dot later" style="--d:1.2s;color:var(--gold);font-size:16px;text-align:center;position:relative">「${t.c}」</p>
     <span class="later" style="--d:1.4s;position:relative;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:4px 14px;font-size:13px">サブタイプ：${T[sub.id].n}</span>
     <p class="later" style="--d:1.6s;font-size:15px;line-height:1.85;position:relative">${ps.intro}</p>
   </section>
   <section class="card rv" style="display:flex;flex-direction:column;gap:10px">
-    <h2>◆ 考え方と行動</h2>
+    <h2 class="sh">考え方と行動</h2>
     <p><b>考え方：</b>${t.th}</p><p><b>行動：</b>${t.ac}</p>
     <p><b>長所：</b>${ps.good}</p><p><b>注意点：</b>${ps.care}</p>
   </section>
   <section class="card rv" style="display:flex;flex-direction:column;gap:14px">
-    <h2>◆ 性格のバランス</h2>${axisRows}
+    <h2 class="sh">性格のバランス</h2>${axisRows}
     <p class="small muted">${sub.both ? `「${AX[sub.axis][2]}」がほぼ真ん中です。${T[sub.id].n}の素質もかなり持っています。` : `「${AX[sub.axis][2]}」が真ん中に一番近いため、${T[sub.id].n}をサブタイプとして表示しています。`}</p>
   </section>
   <section class="card rv" style="display:flex;flex-direction:column;gap:12px">
-    <h2>◆ 能力ステータス</h2>
+    <h2 class="sh">能力ステータス</h2>
     <div class="fig" style="color:var(--ink)">${radar(r.stats)}</div>
     <p class="small muted">● 長所（高い順に2つ）　○ 伸びしろ　点線＝あなたの平均（${Math.round(avg)}）${flat ? '<br>6つの能力の差が小さい「バランス型」です。' : ''}</p>
     <div>${idx.map(s => `<div class="stat"><span class="dot" style="width:80px;font-size:15px">${S[s].n}</span><span class="dot" style="width:34px;font-size:19px" data-count="${r.stats[s]}">${r.stats[s]}</span><span class="small muted">${S[s].d}</span></div>`).join('')}</div>
   </section>
   <section class="rv" style="display:flex;flex-direction:column;gap:10px">
-    <h2>◆ 長けている能力</h2>
+    <h2 class="sh">長けている能力</h2>
     ${strong.map(s => `<div class="card" style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between"><span class="dot" style="font-size:19px">${S[s].n}</span><span class="dot" style="background:var(--win);color:#fff;border-radius:4px;padding:0 8px">${r.stats[s]}</span></div><p style="font-size:15px">${S[s].s}</p></div>`).join('')}
   </section>
   <section class="rv" style="display:flex;flex-direction:column;gap:10px">
-    <h2>◆ 伸ばせる能力</h2>
+    <h2 class="sh">伸ばせる能力</h2>
     ${grow.map(s => `<div class="card" style="border-style:dashed;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between"><span class="dot" style="font-size:19px">${S[s].n}</span><span class="dot" style="border:2px solid var(--line);border-radius:4px;padding:0 8px">${r.stats[s]}</span></div><b>${S[s].h}</b><ul style="margin:0;padding-left:20px;font-size:15px">${S[s].a.map(x => `<li>${x}</li>`).join('')}</ul><p class="tip">${t.n}のあなたなら：${TIP[r.type][s]}</p></div>`).join('')}
   </section>
   <section class="card rv" style="display:flex;flex-direction:column;gap:12px">
-    <h2>◆ ワクワクする冒険</h2>
+    <h2 class="sh">ワクワクする冒険</h2>
     <p class="small muted">どんな活動に楽しさを感じやすいかの傾向です（心理学のRIASECの考え方をもとにしています）。</p>
     ${riOrder.map((k, n) => `<div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:${n < 2 ? 700 : 400}">${IN[k].n}</span><span class="dot">${r.ri[k]}</span></div><div class="bar" style="height:12px"><i style="width:${r.ri[k]}%;background:${n < 2 ? 'var(--gold)' : 'var(--muted)'}"></i></div></div>`).join('')}
     ${riOrder.slice(0, 2).map(k => `<div style="background:var(--soft);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><span class="dot" style="font-size:18px">${IN[k].n}</span><p style="font-size:15px">${IN[k].d}</p><p class="small">${IN[k].u}</p></div>`).join('')}
   </section>
   <section class="card rv" style="display:flex;flex-direction:column;gap:14px">
-    <h2>◆ 相性のよい仲間</h2>
+    <h2 class="sh">相性のよい仲間</h2>
     <div style="display:flex;gap:12px;align-items:center"><div class="tile" style="width:76px;height:84px;border:3px solid var(--gold);flex:none">${spr(best, 72)}</div><div><p class="small muted"><b>最高の相性</b></p><p class="dot" style="font-size:20px">${T[best].n}</p><p class="small">${bp.r}</p></div></div>
     <div><p class="small muted"><b>良い相性（価値観が近い）</b></p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">${good.map(id => `<span class="pill">${T[id].n}</span>`).join('')}</div></div>
     <div><p class="small muted"><b>刺激的な相性（違いから学べる）</b></p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">${stim.map(id => `<span class="pill" style="border-style:dashed">${T[id].n}</span>`).join('')}</div></div>
@@ -745,6 +802,28 @@ $('resumeBtn').onclick = () => { const n = st.ans.indexOf(null); st.i = n < 0 ? 
 $('restartBtn').onclick = () => { clearSave(); st = {i:0, ans:Array(N).fill(null)}; renderTop(); show('intro'); };
 $('backBtn').onclick = () => { if (st.i > 0 && !busy) slideQ(-1, () => { st.i--; save(); renderQ(); }); };
 let justDone = false;
+/* ---------- さわる仕掛け ---------- */
+const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const sparks = (x, y, n) => { if (RM) return; const col = ['#E9B949', '#F6D06A', '#4C7BD9', '#E07A9A', '#4FA35A']; const r = document.createElement('i'); r.className = 'ring'; r.style.cssText = `left:${x}px;top:${y}px`; document.body.appendChild(r); setTimeout(() => r.remove(), 550); for (let i = 0; i < n; i++) { const e = document.createElement('i'); e.className = 'spark'; const a = Math.PI * 2 * i / n + rnd(-.4, .4), d = rnd(18, 42); e.style.cssText = `left:${x - 3}px;top:${y - 3}px;background:${col[i % col.length]};--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px`; document.body.appendChild(e); setTimeout(() => e.remove(), 650); } };
+document.addEventListener('pointerdown', e => { if (e.button === 0) sparks(e.clientX, e.clientY, 7); }, {passive:true});
+if (FINE && !RM) {
+  document.addEventListener('pointermove', e => {
+    const b = e.target.closest('.btn');
+    document.querySelectorAll('.btn.mag').forEach(x => { if (x !== b) { x.classList.remove('mag'); x.style.translate = ''; } });
+    if (b) { const q = b.getBoundingClientRect(); b.classList.add('mag'); b.style.translate = `${(e.clientX - q.left - q.width / 2) / q.width * 10}px ${(e.clientY - q.top - q.height / 2) / q.height * 8}px`; }
+    const h = $('heroTile');
+    if (h && $('s-res').classList.contains('on')) { const q = h.getBoundingClientRect(), dx = (e.clientX - q.left - q.width / 2) / innerWidth, dy = (e.clientY - q.top - q.height / 2) / innerHeight; h.style.transform = `rotateY(${dx * 30}deg) rotateX(${-dy * 30}deg)`; }
+  }, {passive:true});
+}
+document.addEventListener('click', e => {
+  const ch = e.target.closest('[data-char]');
+  if (ch) { const t = ch.querySelector('.tile'), say = ch.querySelector('.say'); t.classList.remove('jumpy'); void t.offsetWidth; t.classList.add('jumpy'); document.querySelectorAll('.say.on').forEach(x => { if (x !== say) x.classList.remove('on'); }); say.classList.add('on'); clearTimeout(say.h); say.h = setTimeout(() => say.classList.remove('on'), 2200); return; }
+  const rd = e.target.closest('.rdot');
+  if (rd && rd.dataset.s != null) { const k = +rd.dataset.s; toast(`${S[k].n}：${S[k].d}`); return; }
+  const ht = e.target.closest('#heroTile');
+  if (ht) { ht.style.transform = ''; ht.classList.remove('spin'); void ht.offsetWidth; ht.classList.add('spin'); const q = ht.getBoundingClientRect(); sparks(q.left + q.width / 2, q.top + q.height / 2, 16); }
+});
+
 document.addEventListener('keydown', e => {
   if (!$('s-q').classList.contains('on') || e.metaKey || e.ctrlKey || e.altKey || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if (/^[1-5]$/.test(e.key)) { e.preventDefault(); answer(+e.key - 1); }
