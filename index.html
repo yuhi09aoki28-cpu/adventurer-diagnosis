@@ -71,6 +71,101 @@ h2{font-family:'DotGothic16',sans-serif;font-weight:400;font-size:21px}
 @keyframes bob{50%{transform:translateY(-6px)}}
 .bob{animation:bob 1.2s steps(2) infinite}
 @media (prefers-reduced-motion:reduce){.bob{animation:none}.bar>i{transition:none}}
+
+/* ===== モダンUI（v3） ===== */
+:root{--glass:light-dark(rgba(255,255,255,.72),rgba(30,36,72,.68));--glass-b:light-dark(rgba(31,37,71,.08),rgba(255,255,255,.09));--shadow:0 12px 32px -14px light-dark(rgba(31,37,71,.35),rgba(0,0,0,.6));--grad:linear-gradient(135deg,#232A57 0%,#33408A 100%);--goldg:linear-gradient(135deg,#F6D06A 0%,#E9A93A 100%);--ease:cubic-bezier(.2,.9,.25,1);--spring:cubic-bezier(.3,1.5,.5,1)}
+body{background:var(--bg);min-height:100vh}
+body::before,body::after{content:'';position:fixed;z-index:-1;width:70vmax;height:70vmax;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none;animation:blob 22s ease-in-out infinite alternate}
+body::before{background:radial-gradient(circle,light-dark(#F8D98A,#3A3F8F),transparent 65%);top:-30vmax;left:-25vmax}
+body::after{background:radial-gradient(circle,light-dark(#BFD6FF,#5B2E7A),transparent 65%);bottom:-35vmax;right:-30vmax;animation-delay:-8s}
+@keyframes blob{to{transform:translate(12vmax,10vmax) scale(1.15)}}
+.wrap{gap:16px}
+.card{background:var(--glass);border:1px solid var(--glass-b);border-radius:20px;box-shadow:var(--shadow);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4)}
+.win{background:var(--grad);border:0;box-shadow:0 18px 40px -16px rgba(31,37,71,.7),inset 0 1px 0 rgba(255,255,255,.15);border-radius:22px;position:relative;overflow:hidden}
+.win::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 60% at 0% 0%,rgba(255,255,255,.12),transparent 60%);pointer-events:none}
+.tile{border-radius:14px;box-shadow:inset 0 -6px 0 rgba(31,37,71,.06)}
+.btn{position:relative;overflow:hidden;border:0;border-radius:16px;background:var(--goldg);box-shadow:0 10px 24px -10px rgba(233,169,58,.9),inset 0 1px 0 rgba(255,255,255,.6);transition:transform .18s var(--spring),box-shadow .2s,filter .2s;min-height:56px;letter-spacing:.02em}
+.btn::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:sheen 3.8s ease-in-out infinite}
+@keyframes sheen{0%,70%{left:-60%}100%{left:130%}}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px -10px rgba(233,169,58,1),inset 0 1px 0 rgba(255,255,255,.6)}
+.btn:active{transform:scale(.97);box-shadow:0 4px 12px -6px rgba(233,169,58,.9)}
+.btn.sub{background:var(--glass);border:1px solid var(--glass-b);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.btn.sub::after{display:none}
+.btn.sub:hover{box-shadow:0 16px 30px -14px rgba(31,37,71,.45)}
+.pill{border:1px solid var(--glass-b);background:var(--glass);box-shadow:0 4px 14px -8px rgba(31,37,71,.35);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.link{border-radius:10px;transition:background .2s}.link:hover{background:var(--glass)}
+.bar{border:0;border-radius:999px;height:10px;background:light-dark(rgba(31,37,71,.09),rgba(255,255,255,.1))}
+.bar>i{border-radius:999px;background:var(--goldg);box-shadow:0 0 12px rgba(233,185,73,.6);transform-origin:left;transition:width .5s var(--ease),transform 1.1s var(--ease)}
+.axis .bar{height:12px}
+.opt{border:1px solid var(--glass-b);border-radius:16px;background:var(--glass);color:var(--ink);box-shadow:0 6px 18px -12px rgba(31,37,71,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .2s var(--spring),background .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden;min-height:58px}
+.opt:hover{transform:translateX(4px);border-color:rgba(233,185,73,.8)}
+.opt .k{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:light-dark(rgba(31,37,71,.07),rgba(255,255,255,.1));font:13px 'DotGothic16',sans-serif;flex:none;transition:all .25s var(--spring)}
+.opt.sel{background:var(--goldg);color:#1F2547;transform:scale(1.02);box-shadow:0 12px 26px -12px rgba(233,169,58,1)}
+.opt.sel .k{background:#1F2547;color:#fff;transform:rotate(360deg)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+.chip{border:1px solid var(--glass-b);border-radius:16px;background:var(--glass);color:var(--ink);transition:transform .2s var(--spring),box-shadow .2s}
+.chip:hover{transform:translateY(-3px)}
+.chip.sel{border-color:transparent;box-shadow:0 0 0 3px #E9B949,0 10px 22px -10px rgba(233,169,58,.9);transform:translateY(-3px) scale(1.04)}
+.chip.sel img{animation:hop .5s var(--spring)}
+.stat{border-bottom:1px solid var(--glass-b)}
+.tip{border-radius:12px}
+.toast{border:0;border-radius:14px;background:var(--grad);box-shadow:0 14px 30px -12px rgba(31,37,71,.7);transform:translate(-50%,40px);opacity:0;transition:transform .4s var(--spring),opacity .3s}
+.toast.show{transform:translate(-50%,0);opacity:1}
+/* 画面遷移 */
+.screen.on>*:not(.rv){animation:rise .55s var(--ease) both;animation-delay:calc(var(--i,0) * 55ms)}
+@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.98);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+/* トップ */
+.title-shine{background:linear-gradient(90deg,var(--ink) 0%,var(--ink) 40%,#E9A93A 50%,var(--ink) 60%,var(--ink) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tshine 5s ease-in-out infinite}
+@keyframes tshine{0%,40%{background-position:100% 0}100%{background-position:-50% 0}}
+#topGrid>div{animation:float 3.2s ease-in-out infinite;animation-delay:calc(var(--j,0) * -.4s)}
+#topGrid .tile{transition:transform .25s var(--spring)}
+#topGrid>div:hover .tile{transform:translateY(-6px) rotate(-4deg) scale(1.06)}
+@keyframes float{50%{transform:translateY(-6px)}}
+/* 質問 */
+#qCard{transition:none}
+.q-out-l{animation:qoutl .22s ease-in forwards}.q-out-r{animation:qoutr .22s ease-in forwards}
+.q-in-r{animation:qinr .42s var(--spring) both}.q-in-l{animation:qinl .42s var(--spring) both}
+@keyframes qoutl{to{opacity:0;transform:translateX(-40px) rotate(-2deg)}}
+@keyframes qoutr{to{opacity:0;transform:translateX(40px) rotate(2deg)}}
+@keyframes qinr{from{opacity:0;transform:translateX(50px) rotate(2deg)}}
+@keyframes qinl{from{opacity:0;transform:translateX(-50px) rotate(-2deg)}}
+#opts.q-in-r .opt,#opts.q-in-l .opt{animation:rise .45s var(--ease) both}
+#opts .opt:nth-child(2){animation-delay:40ms!important}#opts .opt:nth-child(3){animation-delay:80ms!important}#opts .opt:nth-child(4){animation-delay:120ms!important}#opts .opt:nth-child(5){animation-delay:160ms!important}
+.qmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.cheer{position:fixed;left:50%;bottom:22px;transform:translate(-50%,0);z-index:12;display:flex;gap:10px;align-items:center;background:var(--grad);color:#fff;border-radius:18px;padding:10px 16px 10px 10px;box-shadow:0 20px 40px -14px rgba(31,37,71,.8);animation:cheer 2.6s var(--spring) forwards;pointer-events:none;max-width:90vw}
+.cheer .tile{width:52px;height:56px;flex:none}
+@keyframes cheer{0%{opacity:0;transform:translate(-50%,-20px) scale(.8)}12%{opacity:1;transform:translate(-50%,0) scale(1)}85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-14px) scale(.96)}}
+/* 鑑定中 */
+.magic{position:relative;width:220px;height:220px;display:grid;place-items:center}
+.magic svg{position:absolute;inset:0;width:100%;height:100%}
+.magic .r1{animation:spin 9s linear infinite;transform-origin:center}.magic .r2{animation:spin 6s linear infinite reverse;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loadSpr{position:relative;border:0!important;background:transparent!important;box-shadow:none!important}
+#loadSpr img{filter:brightness(0) invert(1) drop-shadow(0 0 12px #E9B949);animation:silh 1.8s ease-in forwards}
+@keyframes silh{0%{opacity:.2;transform:scale(.8)}70%{filter:brightness(0) invert(1) drop-shadow(0 0 18px #E9B949);opacity:1}100%{filter:none;transform:scale(1)}}
+#loadMsg{min-height:1.7em;transition:opacity .25s}
+/* 結果 */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.seen{opacity:1;transform:none}
+.rv:not(.seen) .bar>i{transform:scaleX(0)}
+.rp{transform-origin:190px 160px;transform:scale(0);transition:transform 1.2s var(--spring) .2s}
+.rv.seen .rp{transform:scale(1)}
+.rdot{opacity:0;transition:opacity .4s ease 1.1s}.rv.seen .rdot{opacity:1}
+.hero{text-align:center}
+.hero .burst{position:absolute;left:50%;top:150px;width:520px;height:520px;margin:-260px 0 0 -260px;background:repeating-conic-gradient(rgba(233,185,73,.35) 0 8deg,transparent 8deg 22deg);-webkit-mask:radial-gradient(closest-side,#000 25%,transparent);mask:radial-gradient(closest-side,#000 25%,transparent);animation:spin 14s linear infinite;pointer-events:none}
+.hero .tile{position:relative;animation:reveal 1s var(--spring) .2s both}
+@keyframes reveal{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.12) rotate(4deg)}100%{transform:none}}
+.hero h1 span{display:inline-block;animation:letter .6s var(--spring) both;animation-delay:calc(.7s + var(--i) * 90ms)}
+@keyframes letter{from{opacity:0;transform:translateY(24px) scale(.5) rotate(-12deg)}}
+.hero .later{animation:rise .6s var(--ease) both;animation-delay:var(--d)}
+.conf{position:fixed;top:-14px;width:9px;height:14px;z-index:30;pointer-events:none;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r))}}
+@keyframes hop{0%{transform:none}40%{transform:translateY(-8px) scale(1.1)}100%{transform:none}}
+#cOut.pulse{animation:pop .5s var(--spring)}
+@keyframes pop{0%{transform:scale(.96);opacity:.6}100%{transform:none;opacity:1}}
+#shareImg{animation:rise .7s var(--ease) both;box-shadow:0 24px 50px -20px rgba(31,37,71,.7);border-radius:18px!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.rp{transform:none}.rdot{opacity:1}.rv:not(.seen) .bar>i{transform:none}.toast.show{opacity:1}}
 </style>
 </head>
 <body>
@@ -79,7 +174,7 @@ h2{font-family:'DotGothic16',sans-serif;font-weight:400;font-size:21px}
 <section class="screen" id="s-top">
   <div style="text-align:center;display:flex;flex-direction:column;gap:6px;padding-top:18px">
     <p class="dot muted" style="font-size:14px;letter-spacing:.2em">冒険者ギルド 鑑定所</p>
-    <h1 class="dot" style="font-size:46px;line-height:1.1;font-weight:400">冒険者診断</h1>
+    <h1 class="dot title-shine" style="font-size:46px;line-height:1.1;font-weight:400">冒険者診断</h1>
     <p>あなたの性格タイプと<br>6つの能力を鑑定します</p>
   </div>
   <div class="win grid4" id="topGrid"></div>
@@ -140,21 +235,22 @@ h2{font-family:'DotGothic16',sans-serif;font-weight:400;font-size:21px}
   </div>
   <div style="display:flex;flex-direction:column;gap:6px">
     <div class="bar" role="progressbar" aria-label="進捗" id="qBarWrap"><i id="qBar" style="width:0"></i></div>
-    <span class="small muted" style="text-align:right" id="qPct"></span>
+    <div class="qmeta"><span id="qLeft"></span><span id="qPct"></span></div>
   </div>
-  <div class="win" style="min-height:160px;display:flex;flex-direction:column;justify-content:center;gap:10px">
+  <div class="win" id="qCard" style="min-height:170px;display:flex;flex-direction:column;justify-content:center;gap:10px">
     <span class="dot" style="color:var(--gold);font-size:14px" id="qTag"></span>
     <p style="font-size:19px;font-weight:700;line-height:1.7" id="qText" aria-live="polite"></p>
   </div>
   <div style="display:flex;flex-direction:column;gap:10px" id="opts"></div>
+  <p class="note">キーボードの 1〜5 でも答えられます</p>
   <button class="link" type="button" id="quitBtn" style="align-self:center">中断してトップへ（回答は保存されます）</button>
 </section>
 
 <section class="screen" id="s-load">
   <div class="win" style="display:flex;flex-direction:column;align-items:center;gap:22px;padding:40px 20px">
     <p class="dot" style="font-size:30px">鑑定中…</p>
-    <div class="tile bob" style="width:150px;height:166px;border:3px solid var(--gold)" id="loadSpr"></div>
-    <p style="text-align:center">72の回答から、あなたの素質を読み解いています</p>
+    <div class="magic"><svg viewBox="0 0 220 220" aria-hidden="true"><g class="r1"><circle cx="110" cy="110" r="104" fill="none" stroke="#E9B949" stroke-width="2" stroke-dasharray="3 7"/><polygon points="110,14 193,158 27,158" fill="none" stroke="#E9B949" stroke-opacity=".6" stroke-width="1.5"/><polygon points="110,206 27,62 193,62" fill="none" stroke="#E9B949" stroke-opacity=".6" stroke-width="1.5"/></g><g class="r2"><circle cx="110" cy="110" r="86" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1.5" stroke-dasharray="14 6"/></g></svg><div class="tile" style="width:130px;height:146px" id="loadSpr"></div></div>
+    <p style="text-align:center" id="loadMsg">72の回答を集めています…</p>
     <div class="bar" style="width:100%;border-color:#fff;background:#2C3462"><i id="loadBar" style="width:0"></i></div>
   </div>
 </section>
@@ -349,9 +445,22 @@ const clearSave = () => { try { localStorage.removeItem(KEY); } catch (e) {} };
 
 const show = name => {
   document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === 's-' + name));
+  const sc = $('s-' + name); if (sc) [...sc.children].forEach((c, i) => { c.style.setProperty('--i', Math.min(i, 10)); c.style.animation = 'none'; void c.offsetWidth; c.style.animation = ''; });
   window.scrollTo(0, 0);
 };
-const toast = msg => { const t = $('toast'); t.textContent = msg; t.style.display = 'block'; clearTimeout(toast.h); toast.h = setTimeout(() => { t.style.display = 'none'; }, 2200); };
+const toast = msg => { const t = $('toast'); t.textContent = msg; t.style.display = 'block'; requestAnimationFrame(() => t.classList.add('show')); clearTimeout(toast.h); toast.h = setTimeout(() => { t.classList.remove('show'); setTimeout(() => { if (!t.classList.contains('show')) t.style.display = 'none'; }, 400); }, 2200); };
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rnd = (a, b) => a + Math.random() * (b - a);
+const confetti = n => { if (RM) return; const col = ['#E9B949', '#F6D06A', '#4C7BD9', '#D2553E', '#4FA35A', '#E07A9A', '#FFFFFF']; for (let i = 0; i < n; i++) { const c = document.createElement('i'); c.className = 'conf'; c.style.cssText = `left:${rnd(0, 100)}vw;background:${col[i % col.length]};--dx:${rnd(-80, 80)}px;--r:${rnd(360, 1440)}deg;animation-duration:${rnd(2.2, 3.8)}s;animation-delay:${rnd(0, .8)}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 5000); } };
+const countUp = (el, to, dur, delay) => { if (RM) { el.textContent = to; return; } el.textContent = 0; setTimeout(() => { const t0 = performance.now(); const f = t => { const k = Math.min(1, (t - t0) / dur); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }, delay || 0); };
+let io = null;
+const observe = root => {
+  const els = [...root.querySelectorAll('.rv')];
+  if (RM || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('seen')); return; }
+  if (io) io.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('seen'); e.target.querySelectorAll('[data-count]').forEach(n => { if (!n.dataset.done) { n.dataset.done = 1; countUp(n, +n.dataset.count, 900, 200); } }); io.unobserve(e.target); } }), {threshold:.15});
+  els.forEach(e => io.observe(e));
+};
 
 /* ---------- scoring ---------- */
 const score = ans => {
@@ -413,11 +522,11 @@ const radar = (stats, opt) => {
   let g = [20,40,60,80,100].map(v => `<polygon points="${poly(() => v)}" fill="none" stroke="${o.grid}"/>`).join('');
   g += ORDER.map((s, i) => { const p = P(i, 100); return `<line x1="${o.cx}" y1="${o.cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}" stroke="${o.grid}"/>`; }).join('');
   g += `<polygon points="${poly(() => avg)}" fill="none" stroke="${o.ink}" stroke-opacity=".55" stroke-width="1.25" stroke-dasharray="4 4"/>`;
-  g += `<polygon points="${poly(s => stats[s])}" fill="${o.fill}" fill-opacity=".45" stroke="${o.ink}" stroke-width="2.5"/>`;
+  g += `<polygon class="rp" points="${poly(s => stats[s])}" fill="${o.fill}" fill-opacity=".45" stroke="${o.ink}" stroke-width="2.5"/>`;
   g += ORDER.map((s, i) => {
     const p = P(i, stats[s]), v = stats[s];
     const k = pk.strong.includes(s) ? 1 : pk.grow.includes(s) ? -1 : 0;
-    return `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${k ? 6 : 4}" fill="${k < 0 ? '#fff' : o.ink}" stroke="${o.ink}" stroke-width="2.5"><title>${S[s].n} ${v}</title></circle>`;
+    return `<circle class="rdot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${k ? 6 : 4}" fill="${k < 0 ? '#fff' : o.ink}" stroke="${o.ink}" stroke-width="2.5"><title>${S[s].n} ${v}</title></circle>`;
   }).join('');
   if (o.labels) g += ORDER.map((s, i) => {
     const c = Math.cos(ang(i)), sn = Math.sin(ang(i));
@@ -430,8 +539,8 @@ const radar = (stats, opt) => {
 
 /* ---------- screens ---------- */
 const renderTop = () => {
-  $('topGrid').innerHTML = ['warrior','priest','mage','monk','merchant','sage','archer','bard'].map(id =>
-    `<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div class="tile" style="width:100%;height:76px">${spr(id, 64)}</div><span class="dot" style="font-size:13px;color:#fff">${T[id].n}</span></div>`).join('');
+  $('topGrid').innerHTML = ['warrior','priest','mage','monk','merchant','sage','archer','bard'].map((id, j) =>
+    `<div style="--j:${j};display:flex;flex-direction:column;align-items:center;gap:4px"><div class="tile" style="width:100%;height:76px">${spr(id, 64)}</div><span class="dot" style="font-size:13px;color:#fff">${T[id].n}</span></div>`).join('');
   const done = st.ans.filter(a => a !== null).length;
   const mid = done > 0 && done < N;
   $('resumeBox').style.display = mid ? 'flex' : 'none';
@@ -447,18 +556,35 @@ const renderQ = () => {
   const pct = Math.round(done / N * 100);
   $('qBar').style.width = pct + '%';
   $('qBarWrap').setAttribute('aria-valuenow', pct);
-  $('qPct').textContent = `進捗 ${pct}%・回答はこのブラウザに自動保存されます`;
+  $('qPct').textContent = `${pct}%`;
+  const left = Math.max(1, Math.ceil((N - done) * 9 / 60));
+  $('qLeft').textContent = done >= N ? '回答はこのブラウザに自動保存されます' : `残り 約${left}分・自動保存中`;
   $('backBtn').style.visibility = i === 0 ? 'hidden' : 'visible';
-  $('opts').innerHTML = LABELS.map((l, k) => `<button type="button" class="opt${st.ans[i] === k ? ' sel' : ''}" data-k="${k}"><span class="dot" style="width:16px">${st.ans[i] === k ? '▶' : ''}</span>${l}</button>`).join('');
+  $('opts').innerHTML = LABELS.map((l, k) => `<button type="button" class="opt${st.ans[i] === k ? ' sel' : ''}" data-k="${k}"><span class="k">${st.ans[i] === k ? '✓' : k + 1}</span>${l}</button>`).join('');
 };
-const answer = k => {
+let busy = false;
+const slideQ = (dir, f) => {
+  if (RM) { f(); return; }
+  const c = $('qCard'), o = $('opts');
+  [c, o].forEach(e => { e.classList.remove('q-in-r', 'q-in-l'); e.classList.add(dir > 0 ? 'q-out-l' : 'q-out-r'); });
+  setTimeout(() => { f(); [c, o].forEach(e => { e.classList.remove('q-out-l', 'q-out-r'); void e.offsetWidth; e.classList.add(dir > 0 ? 'q-in-r' : 'q-in-l'); }); }, 210);
+};
+const CHEER = {18:'4分の1まで来たね。この調子！', 36:'半分まで来たよ。ひと息ついても大丈夫。', 54:'あと少し！ 残り4分の1だよ。', 71:'次で最後の質問だよ！'};
+const cheer = n => { if (!CHEER[n]) return; const d = document.createElement('div'); d.className = 'cheer'; d.setAttribute('role', 'status'); d.innerHTML = `<div class="tile">${spr('sage', 48)}</div><span style="font-size:14px">${CHEER[n]}</span>`; document.body.appendChild(d); setTimeout(() => d.remove(), 2700); };
+const answer = (k, ev) => {
+  if (busy) return; busy = true;
   st.ans[st.i] = k; save();
-  document.querySelectorAll('.opt').forEach(b => b.classList.toggle('sel', +b.dataset.k === k));
+  document.querySelectorAll('.opt').forEach(b => { const on = +b.dataset.k === k; b.classList.toggle('sel', on); b.querySelector('.k').textContent = on ? '✓' : +b.dataset.k + 1; });
+  const b = document.querySelector(`.opt[data-k="${k}"]`);
+  if (b && !RM) { const q = b.getBoundingClientRect(), r = document.createElement('span'); const sz = q.width; r.className = 'ripple'; r.style.cssText = `width:${sz}px;height:${sz}px;left:${(ev && ev.clientX ? ev.clientX - q.left : q.width / 2) - sz / 2}px;top:${(ev && ev.clientY ? ev.clientY - q.top : q.height / 2) - sz / 2}px`; b.appendChild(r); }
+  try { if (navigator.vibrate) navigator.vibrate(8); } catch (e) {}
   setTimeout(() => {
-    if (st.i < N - 1) { st.i++; save(); renderQ(); }
+    busy = false;
+    const done = st.ans.filter(a => a !== null).length;
+    if (st.i < N - 1) { slideQ(1, () => { st.i++; save(); renderQ(); }); cheer(st.i + 1 === N - 1 ? 71 : done === st.i + 1 ? done : 0); }
     else if (st.ans.every(a => a !== null)) finish();
     else { st.i = st.ans.indexOf(null); save(); renderQ(); toast('未回答の質問があります'); }
-  }, 160);
+  }, RM ? 120 : 260);
 };
 const send = (r) => {
   if (!ENDPOINT || !st.consent) return;
@@ -473,11 +599,13 @@ const finish = () => {
   result = score(st.ans);
   send(result);
   show('load');
-  $('loadSpr').innerHTML = spr(result.type, 140);
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const bar = $('loadBar'); bar.style.width = '0';
-  requestAnimationFrame(() => { bar.style.width = '100%'; });
-  setTimeout(() => { clearSave(); st = {i:0, ans:Array(N).fill(null)}; location.hash = encode(result); }, reduce ? 300 : 1800);
+  $('loadSpr').innerHTML = spr(result.type, 124);
+  const reduce = RM;
+  const bar = $('loadBar'); bar.style.transition = 'width 2.4s cubic-bezier(.4,0,.2,1)'; bar.style.width = '0';
+  requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = '100%'; }));
+  const msgs = ['性格の5つの特徴を読み解いています…', '6つの能力を測っています…', 'ワクワクする冒険を探しています…', '相性のよい仲間を調べています…'];
+  msgs.forEach((m, i) => setTimeout(() => { const e = $('loadMsg'); if (!e) return; e.style.opacity = 0; setTimeout(() => { e.textContent = m; e.style.opacity = 1; }, 220); }, 200 + i * 560));
+  setTimeout(() => { clearSave(); st = {i:0, ans:Array(N).fill(null)}; justDone = true; location.hash = encode(result); }, reduce ? 300 : 2600);
 };
 
 const renderRes = r => {
@@ -501,44 +629,45 @@ const renderRes = r => {
   ${r.shared ? '<p class="note">共有された結果を表示しています</p>' : ''}
   ${r.sid ? `<div class="card small">ご協力ありがとうございます。あなたの回答IDは <b class="dot" style="font-size:16px">${r.sid}</b> です。2週間ほどあけてもう一度診断するときに入力すると、結果の安定性を確かめるのに使えます。</div>` : ''}
   ${r.warn ? '<div class="card small">今回は「どちらともいえない」や同じ選択肢が多く、傾向が出にくい回答でした。結果は参考程度にご覧ください。</div>' : ''}
-  <section class="win" style="display:flex;flex-direction:column;align-items:center;gap:12px">
-    <p class="small">あなたは…</p>
-    <div class="tile" style="width:170px;height:190px;border:3px solid var(--gold)">${spr(r.type, 166)}</div>
-    <h1 class="dot" style="font-size:42px;line-height:1.1;font-weight:400">${t.n}</h1>
-    <p class="dot" style="color:var(--gold);font-size:16px;text-align:center">「${t.c}」</p>
-    <span style="border:2px solid #fff;border-radius:999px;padding:4px 12px;font-size:13px">サブタイプ：${T[sub.id].n}</span>
-    <p style="font-size:15px;line-height:1.85">${ps.intro}</p>
+  <section class="win hero" style="display:flex;flex-direction:column;align-items:center;gap:12px">
+    <div class="burst" aria-hidden="true"></div>
+    <p class="small later" style="--d:.1s;position:relative">あなたは…</p>
+    <div class="tile" style="width:170px;height:190px;box-shadow:0 0 0 4px #E9B949,0 0 40px rgba(233,185,73,.6)">${spr(r.type, 166)}</div>
+    <h1 class="dot" style="font-size:44px;line-height:1.1;font-weight:400;position:relative" aria-label="${t.n}">${[...t.n].map((ch, i) => `<span style="--i:${i}">${ch}</span>`).join('')}</h1>
+    <p class="dot later" style="--d:1.2s;color:var(--gold);font-size:16px;text-align:center;position:relative">「${t.c}」</p>
+    <span class="later" style="--d:1.4s;position:relative;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:4px 14px;font-size:13px">サブタイプ：${T[sub.id].n}</span>
+    <p class="later" style="--d:1.6s;font-size:15px;line-height:1.85;position:relative">${ps.intro}</p>
   </section>
-  <section class="card" style="display:flex;flex-direction:column;gap:10px">
+  <section class="card rv" style="display:flex;flex-direction:column;gap:10px">
     <h2>◆ 考え方と行動</h2>
     <p><b>考え方：</b>${t.th}</p><p><b>行動：</b>${t.ac}</p>
     <p><b>長所：</b>${ps.good}</p><p><b>注意点：</b>${ps.care}</p>
   </section>
-  <section class="card" style="display:flex;flex-direction:column;gap:14px">
+  <section class="card rv" style="display:flex;flex-direction:column;gap:14px">
     <h2>◆ 性格のバランス</h2>${axisRows}
     <p class="small muted">${sub.both ? `「${AX[sub.axis][2]}」がほぼ真ん中です。${T[sub.id].n}の素質もかなり持っています。` : `「${AX[sub.axis][2]}」が真ん中に一番近いため、${T[sub.id].n}をサブタイプとして表示しています。`}</p>
   </section>
-  <section class="card" style="display:flex;flex-direction:column;gap:12px">
+  <section class="card rv" style="display:flex;flex-direction:column;gap:12px">
     <h2>◆ 能力ステータス</h2>
     <div class="fig" style="color:var(--ink)">${radar(r.stats)}</div>
     <p class="small muted">● 長所（高い順に2つ）　○ 伸びしろ　点線＝あなたの平均（${Math.round(avg)}）${flat ? '<br>6つの能力の差が小さい「バランス型」です。' : ''}</p>
-    <div>${idx.map(s => `<div class="stat"><span class="dot" style="width:80px;font-size:15px">${S[s].n}</span><span class="dot" style="width:34px;font-size:19px">${r.stats[s]}</span><span class="small muted">${S[s].d}</span></div>`).join('')}</div>
+    <div>${idx.map(s => `<div class="stat"><span class="dot" style="width:80px;font-size:15px">${S[s].n}</span><span class="dot" style="width:34px;font-size:19px" data-count="${r.stats[s]}">${r.stats[s]}</span><span class="small muted">${S[s].d}</span></div>`).join('')}</div>
   </section>
-  <section style="display:flex;flex-direction:column;gap:10px">
+  <section class="rv" style="display:flex;flex-direction:column;gap:10px">
     <h2>◆ 長けている能力</h2>
     ${strong.map(s => `<div class="card" style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between"><span class="dot" style="font-size:19px">${S[s].n}</span><span class="dot" style="background:var(--win);color:#fff;border-radius:4px;padding:0 8px">${r.stats[s]}</span></div><p style="font-size:15px">${S[s].s}</p></div>`).join('')}
   </section>
-  <section style="display:flex;flex-direction:column;gap:10px">
+  <section class="rv" style="display:flex;flex-direction:column;gap:10px">
     <h2>◆ 伸ばせる能力</h2>
     ${grow.map(s => `<div class="card" style="border-style:dashed;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between"><span class="dot" style="font-size:19px">${S[s].n}</span><span class="dot" style="border:2px solid var(--line);border-radius:4px;padding:0 8px">${r.stats[s]}</span></div><b>${S[s].h}</b><ul style="margin:0;padding-left:20px;font-size:15px">${S[s].a.map(x => `<li>${x}</li>`).join('')}</ul><p class="tip">${t.n}のあなたなら：${TIP[r.type][s]}</p></div>`).join('')}
   </section>
-  <section class="card" style="display:flex;flex-direction:column;gap:12px">
+  <section class="card rv" style="display:flex;flex-direction:column;gap:12px">
     <h2>◆ ワクワクする冒険</h2>
     <p class="small muted">どんな活動に楽しさを感じやすいかの傾向です（心理学のRIASECの考え方をもとにしています）。</p>
     ${riOrder.map((k, n) => `<div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:${n < 2 ? 700 : 400}">${IN[k].n}</span><span class="dot">${r.ri[k]}</span></div><div class="bar" style="height:12px"><i style="width:${r.ri[k]}%;background:${n < 2 ? 'var(--gold)' : 'var(--muted)'}"></i></div></div>`).join('')}
     ${riOrder.slice(0, 2).map(k => `<div style="background:var(--soft);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><span class="dot" style="font-size:18px">${IN[k].n}</span><p style="font-size:15px">${IN[k].d}</p><p class="small">${IN[k].u}</p></div>`).join('')}
   </section>
-  <section class="card" style="display:flex;flex-direction:column;gap:14px">
+  <section class="card rv" style="display:flex;flex-direction:column;gap:14px">
     <h2>◆ 相性のよい仲間</h2>
     <div style="display:flex;gap:12px;align-items:center"><div class="tile" style="width:76px;height:84px;border:3px solid var(--gold);flex:none">${spr(best, 72)}</div><div><p class="small muted"><b>最高の相性</b></p><p class="dot" style="font-size:20px">${T[best].n}</p><p class="small">${bp.r}</p></div></div>
     <div><p class="small muted"><b>良い相性（価値観が近い）</b></p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">${good.map(id => `<span class="pill">${T[id].n}</span>`).join('')}</div></div>
@@ -548,6 +677,8 @@ const renderRes = r => {
   <button class="btn" type="button" id="toShare">冒険者プロフィールをシェア</button>
   <button class="btn sub" type="button" id="again">${r.shared ? '自分も診断してみる' : 'もう一度診断する'}</button>
   <p class="note">この診断は自己理解のきっかけを目的としたものです。正式な心理検査ではありません。<br>性格の質問は、パブリックドメインの国際パーソナリティ項目プール（IPIP、ipip.ori.org）の項目をもとに日本語化したものです。</p>`;
+  observe($('s-res'));
+  if (justDone && !r.shared) { justDone = false; confetti(90); }
   $('resCompat').onclick = () => { compatSel = {a:r.type, b:best}; compatFrom = 'res'; renderCompat(); show('compat'); };
   $('toShare').onclick = () => { show('share'); renderShare(r); };
   $('again').onclick = () => { history.replaceState(null, '', location.pathname + location.search); result = null; st = {i:0, ans:Array(N).fill(null)}; renderTop(); show('top'); };
@@ -557,6 +688,7 @@ const renderCompat = () => {
   const chips = (key) => IDS.map(id => `<button type="button" class="chip${compatSel[key] === id ? ' sel' : ''}" data-k="${key}" data-id="${id}" aria-pressed="${compatSel[key] === id}">${spr(id, 50)}${T[id].n}</button>`).join('');
   $('cSelf').innerHTML = chips('a'); $('cOther').innerHTML = chips('b');
   const a = compatSel.a, b = compatSel.b, rt = rating(a, b), p = PAIR[[a, b].sort().join('|')];
+  $('cOut').classList.remove('pulse'); void $('cOut').offsetWidth; $('cOut').classList.add('pulse');
   $('cOut').innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="dot" style="font-size:18px">${T[a].n} × ${T[b].n}</span><span class="dot" style="background:${RBG[rt]};color:#1F2547;border-radius:4px;padding:2px 10px">${a === b ? '良い相性（同じタイプ）' : RNAME[rt]}</span></div><p style="font-size:15px">${p.r}</p><div style="border-top:2px solid #3A4380;padding-top:10px"><p class="small" style="color:var(--gold)"><b>一緒に動くときのポイント</b></p><p style="font-size:15px">${p.p}</p></div>`;
 };
 
@@ -596,7 +728,7 @@ const renderShare = async r => {
 document.addEventListener('click', e => {
   const go = e.target.closest('[data-go]');
   if (go) { if (go.dataset.go === 'res' && result) show('res'); else show(go.dataset.go); return; }
-  const o = e.target.closest('.opt'); if (o) { answer(+o.dataset.k); return; }
+  const o = e.target.closest('.opt'); if (o) { answer(+o.dataset.k, e); return; }
   const c = e.target.closest('.chip'); if (c) { compatSel[c.dataset.k] = c.dataset.id; renderCompat(); }
 });
 $('startBtn').onclick = () => show('intro');
@@ -611,7 +743,13 @@ $('agreeBtn').onclick = () => startQ(true);
 $('declineBtn').onclick = () => startQ(false);
 $('resumeBtn').onclick = () => { const n = st.ans.indexOf(null); st.i = n < 0 ? N - 1 : n; renderQ(); show('q'); };
 $('restartBtn').onclick = () => { clearSave(); st = {i:0, ans:Array(N).fill(null)}; renderTop(); show('intro'); };
-$('backBtn').onclick = () => { if (st.i > 0) { st.i--; save(); renderQ(); } };
+$('backBtn').onclick = () => { if (st.i > 0 && !busy) slideQ(-1, () => { st.i--; save(); renderQ(); }); };
+let justDone = false;
+document.addEventListener('keydown', e => {
+  if (!$('s-q').classList.contains('on') || e.metaKey || e.ctrlKey || e.altKey || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if (/^[1-5]$/.test(e.key)) { e.preventDefault(); answer(+e.key - 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); $('backBtn').click(); }
+});
 $('quitBtn').onclick = () => { renderTop(); show('top'); };
 $('toCompat').onclick = () => { compatFrom = 'top'; renderCompat(); show('compat'); };
 $('compatBack').onclick = () => { if (compatFrom === 'res' && result) show('res'); else show('top'); };
